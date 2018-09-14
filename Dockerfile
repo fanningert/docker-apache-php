@@ -62,7 +62,7 @@ RUN pecl install apcu-5.1.12 \
 
 RUN apk del .build-deps
 
-RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2 zlib libbz2 libwebp
+RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2 zlib libbz2 libwebp freetype
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
