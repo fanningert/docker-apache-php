@@ -66,7 +66,7 @@ RUN docker-php-ext-install -j$(nproc) curl dom mcrypt sockets xsl zip soap xmlrp
 RUN docker-php-ext-install -j$(nproc) tokenizer
 RUN docker-php-ext-install -j$(nproc) intl
 RUN docker-php-ext-install -j$(nproc) pdo pgsql
-RUN RUN docker-php-ext-configure pdo_pgsql \
+RUN docker-php-ext-configure pdo_pgsql \
  && docker-php-ext-install -j$(nproc) pdo_pgsql
 
 RUN apk del .build-deps
