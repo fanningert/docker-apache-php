@@ -62,10 +62,12 @@ RUN docker-php-ext-install -j$(nproc) iconv \
  && docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
  && docker-php-ext-install -j$(nproc) gd \
  && docker-php-ext-install -j$(nproc) exif \
- && docker-php-ext-install -j$(nproc) dom mcrypt sockets xsl zip soap xmlrpc json \
+ && docker-php-ext-install -j$(nproc) curl dom mcrypt sockets xsl zip soap xmlrpc json \
  && docker-php-ext-install -j$(nproc) tokenizer \
  && docker-php-ext-install -j$(nproc) intl \
- && docker-php-ext-install -j$(nproc) pdo pgsql pdo_pgsql sqlite3 pdo_pgsql
+ && docker-php-ext-install -j$(nproc) pdo pgsql sqlite3 \
+ 
+ && docker-php-ext-install -j$(nproc) pdo_pgsql pdo_pgsql
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
