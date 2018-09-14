@@ -57,17 +57,16 @@ RUN apk update && apk add \
 	zlib-dev
   
 # PHP Extensions
-RUN docker-php-ext-install -j$(nproc) iconv \
- && docker-php-ext-install -j$(nproc) mbstring \
- && docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
- && docker-php-ext-install -j$(nproc) gd \
- && docker-php-ext-install -j$(nproc) exif \
- && docker-php-ext-install -j$(nproc) curl dom mcrypt sockets xsl zip soap xmlrpc json \
- && docker-php-ext-install -j$(nproc) tokenizer \
- && docker-php-ext-install -j$(nproc) intl \
- && docker-php-ext-install -j$(nproc) pdo pgsql sqlite3 \
- 
- && docker-php-ext-install -j$(nproc) pdo_pgsql pdo_pgsql
+RUN docker-php-ext-install -j$(nproc) iconv
+RUN docker-php-ext-install -j$(nproc) mbstring
+RUN docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
+ && docker-php-ext-install -j$(nproc) gd
+RUN docker-php-ext-install -j$(nproc) exif
+RUN docker-php-ext-install -j$(nproc) curl dom mcrypt sockets xsl zip soap xmlrpc json
+RUN docker-php-ext-install -j$(nproc) tokenizer
+RUN docker-php-ext-install -j$(nproc) intl
+RUN docker-php-ext-install -j$(nproc) pdo pgsql sqlite3
+RUN docker-php-ext-install -j$(nproc) pdo_pgsql pdo_pgsql
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
