@@ -56,9 +56,13 @@ RUN docker-php-ext-install -j$(nproc) pdo pgsql
 RUN docker-php-ext-configure pdo_pgsql \
  && docker-php-ext-install -j$(nproc) pdo_pgsql
 
+#PECL
+RUN pecl install apcu-5.1.12 \
+    && docker-php-ext-enable apcu
+
 RUN apk del .build-deps
 
-RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2 zlib libbz2
+RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2 zlib libbz2 libwebp
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
