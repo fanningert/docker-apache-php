@@ -71,7 +71,7 @@ RUN docker-php-ext-configure pdo_pgsql \
 
 RUN apk del .build-deps
 
-RUN apk add libpng icu-libs libmcrypt libpq libxslt
+RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
