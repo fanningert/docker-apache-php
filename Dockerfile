@@ -57,21 +57,18 @@ RUN apk update && apk --no-cache add --virtual .build-deps $PHPIZE_DEPS \
 	zlib-dev
   
 # PHP Extensions
-RUN docker-php-ext-install -j$(nproc) iconv
-RUN docker-php-ext-install -j$(nproc) mbstring
+RUN docker-php-ext-install -j$(nproc) iconv mbstring curl dom mcrypt sockets xsl zip soap xmlrpc json posix zip \
+                                      xmlreader xmlwriter simplexml zlib bz2 bcmath tokenizer intl apcu pcntl
 RUN docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
  && docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-install -j$(nproc) exif
-RUN docker-php-ext-install -j$(nproc) curl dom mcrypt sockets xsl zip soap xmlrpc json
-RUN docker-php-ext-install -j$(nproc) tokenizer
-RUN docker-php-ext-install -j$(nproc) intl
 RUN docker-php-ext-install -j$(nproc) pdo pgsql
 RUN docker-php-ext-configure pdo_pgsql \
  && docker-php-ext-install -j$(nproc) pdo_pgsql
 
 RUN apk del .build-deps
 
-RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo
+RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2 zlib libbz2
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
