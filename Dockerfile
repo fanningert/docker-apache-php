@@ -1,7 +1,7 @@
 FROM php:7.1-fpm-alpine
 
 # Build Dependencies
-RUN apk update && apk add \
+RUN apk update && apk --no-cache add --virtual .build-deps $PHPIZE_DEPS \
   # gd deps
   freetype-dev \
   libpng-dev \
@@ -65,8 +65,10 @@ RUN docker-php-ext-install -j$(nproc) exif
 RUN docker-php-ext-install -j$(nproc) curl dom mcrypt sockets xsl zip soap xmlrpc json
 RUN docker-php-ext-install -j$(nproc) tokenizer
 RUN docker-php-ext-install -j$(nproc) intl
-RUN docker-php-ext-install -j$(nproc) pdo pgsql sqlite3
-RUN docker-php-ext-install -j$(nproc) pdo_pgsql pdo_pgsql
+RUN docker-php-ext-install -j$(nproc) pdo pgsql
+RUN docker-php-ext-install -j$(nproc) pdo_pgsql
+
+RUN apk del .build-deps
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
