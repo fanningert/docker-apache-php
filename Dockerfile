@@ -12,11 +12,11 @@ RUN apk update && apk add \
   # xsl deps
   libxslt-dev \
   # Postgres deps
-  libpq \
+  postgresql-dev \
   # Sqlite deps
-  sqlite-libs \
+  sqlite-dev \
   # Intl deps
-  icu-libs
+  icu-dev
   
 # PHP Extensions
 RUN docker-php-ext-install -j$(nproc) iconv \
