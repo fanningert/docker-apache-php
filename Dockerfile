@@ -3,12 +3,11 @@ FROM php:7.1-fpm
 RUN apt-get update && apt-get install -y \
 		libfreetype6-dev \
 		libjpeg62-turbo-dev \
-		libjpeg62-turbo \
 		libpng-dev \
-		libpng16-16 \
-		libwebp6 \
-		zlib1g \
-		libxpm4 \
+		libpng++-dev \
+		libwebp-dev \
+		zlib1g-dev \
+		libxpm-dev \
 	&& docker-php-ext-install -j$(nproc) iconv \
 	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 	&& docker-php-ext-install -j$(nproc) gd
