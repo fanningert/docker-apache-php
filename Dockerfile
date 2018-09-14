@@ -58,7 +58,7 @@ RUN apk update && apk --no-cache add --virtual .build-deps $PHPIZE_DEPS \
   
 # PHP Extensions
 RUN docker-php-ext-install -j$(nproc) iconv mbstring curl dom mcrypt sockets xsl zip soap xmlrpc json posix zip \
-                                      xmlreader xmlwriter simplexml zlib bz2 bcmath tokenizer intl apcu pcntl
+                                      xmlreader xmlwriter simplexml zlib bz2 bcmath tokenizer intl pcntl
 RUN docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
  && docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-install -j$(nproc) exif
