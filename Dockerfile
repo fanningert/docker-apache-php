@@ -16,7 +16,45 @@ RUN apk update && apk add \
   # Sqlite deps
   sqlite-dev \
   # Intl deps
-  icu-dev
+  icu-dev \
+  # PHP general dep
+  autoconf \
+	apache2-dev \
+	aspell-dev \
+	bison \
+	bzip2-dev \
+	curl-dev \
+	db-dev \
+	enchant-dev \
+	freetds-dev \
+	freetype-dev \
+	gdbm-dev \
+	gettext-dev \
+	gmp-dev \
+	icu-dev \
+	imap-dev \
+	krb5-dev \
+	libedit-dev \
+	libical-dev \
+	libjpeg-turbo-dev \
+	libpng-dev \
+	libressl-dev \
+	libsodium-dev \
+	libwebp-dev \
+	libxml2-dev \
+	libxpm-dev \
+	libxslt-dev \
+	libzip-dev \
+	net-snmp-dev \
+	openldap-dev \
+	pcre-dev \
+	postgresql-dev \
+	re2c \
+	recode-dev \
+	sqlite-dev \
+	tidyhtml-dev \
+	unixodbc-dev \
+	zlib-dev
   
 # PHP Extensions
 RUN docker-php-ext-install -j$(nproc) iconv \
@@ -24,7 +62,7 @@ RUN docker-php-ext-install -j$(nproc) iconv \
  && docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
  && docker-php-ext-install -j$(nproc) gd \
  && docker-php-ext-install -j$(nproc) exif \
- && docker-php-ext-install -j$(nproc) mcrypt sockets xsl zip soap xmlrpc \
+ && docker-php-ext-install -j$(nproc) dom mcrypt sockets xsl zip soap xmlrpc json \
  && docker-php-ext-install -j$(nproc) tokenizer \
  && docker-php-ext-install -j$(nproc) intl \
  && docker-php-ext-install -j$(nproc) pdo pgsql pdo_pgsql sqlite3 pdo_pgsql
