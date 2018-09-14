@@ -14,7 +14,9 @@ RUN apk update && apk add \
   # Postgres deps
   libpq \
   # Sqlite deps
-  sqlite-libs
+  sqlite-libs \
+  # Intl deps
+  icu-libs
   
 # PHP Extensions
 RUN docker-php-ext-install -j$(nproc) iconv \
