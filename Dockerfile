@@ -1,7 +1,7 @@
 FROM php:7.1-fpm-alpine
 
 # Build Dependencies
-RUN apt-get update && apt-get install -y \
+RUN apk update && apk add \
   # gd deps
   freetype-dev \
   libpng-dev \
