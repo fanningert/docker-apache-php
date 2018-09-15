@@ -70,6 +70,7 @@ RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 
 # Change user of PHP-FPM
+RUN apk add shadow
 RUN groupadd -g 911 app
 RUN useradd -u 911 -g 911 -s /bin/false -m app \
  && usermod -G users app
