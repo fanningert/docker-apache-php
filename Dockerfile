@@ -70,7 +70,15 @@ RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
-COPY php_opcache.conf $PHP_INI_DIR/conf.d/php_opcache.conf
+
+# Change OPCache settings
+RUN sed -i 's/;opcache.enable=1/opcache.enable=1/g' $PHP_INI_DIR/php.ini
+RUN sed -i 's/;opcache.enable_cli=0/opcache.enable_cli=1/g' $PHP_INI_DIR/php.ini
+RUN sed -i 's/;opcache.interned_strings_buffer=8/opcache.interned_strings_buffer=8/g' $PHP_INI_DIR/php.ini
+RUN sed -i 's/;opcache.max_accelerated_files=10000/opcache.max_accelerated_files=10000/g' $PHP_INI_DIR/php.ini
+RUN sed -i 's/;opcache.memory_consumption=128/opcache.memory_consumption=128/g' $PHP_INI_DIR/php.ini
+RUN sed -i 's/;opcache.save_comments=1/opcache.save_comments=1/g' $PHP_INI_DIR/php.ini
+RUN sed -i 's/;opcache.revalidate_freq=2/opcache.revalidate_freq=1/g' $PHP_INI_DIR/php.ini
 
 # Change user of PHP-FPM
 RUN apk add shadow
