@@ -66,3 +66,16 @@ RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+
+# Change user of PHP-FPM
+RUN groupadd -g 911 app
+RUN useradd -u 911 -g 911 -s /bin/false -m app \
+ && usermod -G users app
+ 
+sed -i 's/user = www-data/user = app/g' /usr/local/etc/php-fpm.d/www.conf
+sed -i 's/group = www-data/group = app/g' /usr/local/etc/php-fpm.d/www.conf
+
+# Clean up apk cache
+RUN rm -rf /var/cache/apk/*
+
+
