@@ -70,6 +70,7 @@ RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+COPY php_opcache.conf $PHP_INI_DIR/conf.d/php_opcache.conf
 
 # Change user of PHP-FPM
 RUN apk add shadow
