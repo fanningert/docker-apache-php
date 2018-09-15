@@ -60,7 +60,9 @@ RUN docker-php-ext-configure pdo_pgsql \
 RUN pecl install apcu-5.1.12 \
     && docker-php-ext-enable apcu
 
-RUN apk del .build-deps
+# Delete source & builds deps so it does not hang around in layers taking up space
+RUN apk del .build-deps \
+    && docker-php-source delete
 
 RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2 zlib libbz2 libwebp freetype
 
@@ -72,8 +74,8 @@ RUN groupadd -g 911 app
 RUN useradd -u 911 -g 911 -s /bin/false -m app \
  && usermod -G users app
  
-sed -i 's/user = www-data/user = app/g' /usr/local/etc/php-fpm.d/www.conf
-sed -i 's/group = www-data/group = app/g' /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i 's/user = www-data/user = app/g' /usr/local/etc/php-fpm.d/www.conf
+RUN sed -i 's/group = www-data/group = app/g' /usr/local/etc/php-fpm.d/www.conf
 
 # Clean up apk cache
 RUN rm -rf /var/cache/apk/*
