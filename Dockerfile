@@ -45,7 +45,8 @@ RUN apk update && apk --no-cache add --virtual .build-deps $PHPIZE_DEPS \
   sqlite-dev \
   tidyhtml-dev \
   unixodbc-dev \
-  zlib-dev
+  zlib-dev \
+  libmagickwand-dev
   
 # PHP Extensions
 RUN docker-php-source extract
@@ -64,9 +65,7 @@ RUN docker-php-ext-configure pdo_pgsql \
 RUN pecl install apcu \
     && docker-php-ext-enable apcu
 
-# install Imagemagick & PHP Imagick ext
-RUN apt-get update && apt-get install -y \
-        libmagickwand-dev --no-install-recommends
+#install PHP Imagick ext
 RUN pecl install imagick && docker-php-ext-enable imagick
 
 # Delete source & builds deps so it does not hang around in layers taking up space
