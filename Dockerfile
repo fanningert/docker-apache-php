@@ -1,7 +1,9 @@
-FROM php:7.1-fpm-alpine
+FROM php:7.3-fpm-alpine
 
 # Build Dependencies
 RUN apk update && apk --no-cache add --virtual .build-deps $PHPIZE_DEPS \
+  bash \
+  sudo \
   freetype-dev \
   libpng-dev \
   libwebp-dev \
@@ -58,9 +60,14 @@ RUN docker-php-ext-configure pdo_pgsql \
  && docker-php-ext-install -j$(nproc) pdo_pgsql \
  && docker-php-ext-enable opcache
 
-#PECL
-RUN pecl install apcu-5.1.12 \
+# install apcu
+RUN pecl install apcu \
     && docker-php-ext-enable apcu
+
+# install Imagemagick & PHP Imagick ext
+RUN apt-get update && apt-get install -y \
+        libmagickwand-dev --no-install-recommends
+RUN pecl install imagick && docker-php-ext-enable imagick
 
 # Delete source & builds deps so it does not hang around in layers taking up space
 RUN apk del .build-deps \
