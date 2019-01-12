@@ -2,8 +2,6 @@ FROM php:7.3-fpm-alpine
 
 # Build Dependencies
 RUN apk update && apk --no-cache add --virtual .build-deps $PHPIZE_DEPS \
-  bash \
-  sudo \
   freetype-dev \
   libpng-dev \
   libwebp-dev \
@@ -46,7 +44,6 @@ RUN apk update && apk --no-cache add --virtual .build-deps $PHPIZE_DEPS \
   tidyhtml-dev \
   unixodbc-dev \
   zlib-dev \
-  imagemagick \
   imagemagick-dev
   
 # PHP Extensions
@@ -73,7 +70,7 @@ RUN pecl install imagick && docker-php-ext-enable imagick
 RUN apk del .build-deps \
     && docker-php-source delete
 
-RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2 zlib libbz2 libwebp libxpm freetype
+RUN apk add libpng icu-libs libmcrypt libpq libxslt libjpeg-turbo libzip libxml2 zlib libbz2 libwebp libxpm freetype imagemagick bash sudo nano
 
 # Use the default production configuration
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
