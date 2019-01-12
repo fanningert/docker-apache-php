@@ -46,7 +46,7 @@ RUN apk update && apk --no-cache add --virtual .build-deps $PHPIZE_DEPS \
   tidyhtml-dev \
   unixodbc-dev \
   zlib-dev \
-  imagemagick
+  imagemagick-dev
   
 # PHP Extensions
 RUN docker-php-source extract
