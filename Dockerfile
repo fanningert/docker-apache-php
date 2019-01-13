@@ -87,7 +87,7 @@ RUN sed -i 's/;opcache.revalidate_freq=2/opcache.revalidate_freq=1/g' $PHP_INI_D
 # Change user of PHP-FPM
 RUN apk add shadow
 RUN groupadd -g 911 app
-RUN useradd -u 911 -g 911 -s /bin/false -m app \
+RUN useradd -u 911 -g 911 -s /bin/ash -m app \
  && usermod -G users app
  
 RUN sed -i 's/user = www-data/user = app/g' /usr/local/etc/php-fpm.d/www.conf
